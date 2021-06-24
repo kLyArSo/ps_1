@@ -4,7 +4,7 @@ void    array_err()
 {
 
         printf("Error\n");
-        //system("leaks push_swap");
+        system("leaks push_swap | grep  bytes");
         exit(0);
 }
 
@@ -13,7 +13,7 @@ void    validity_err(char **buffer)
 
         printf("Error\n");
         buffer = free_char_buffer(buffer);
-        //system("leaks push_swap");
+        system("leaks push_swap | grep  bytes");
         exit(0);
 }
 
@@ -23,7 +23,7 @@ void    atoi_err(char **buffer, int  *int_cast)
         printf("Error\n");
         buffer = free_char_buffer(buffer);
         int_cast = free_int_buffer(int_cast);
-        //system("leaks push_swap");
+        system("leaks push_swap | grep  bytes");
         exit(0);
 }
 
@@ -33,7 +33,7 @@ void    dup_err(char **buffer, int  *int_cast)
         printf("Error\n");
         buffer = free_char_buffer(buffer);
         int_cast = free_int_buffer(int_cast);
-        //system("leaks push_swap");
+        system("leaks push_swap | grep  bytes");
         exit(0);
 }
 

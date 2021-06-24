@@ -68,4 +68,4 @@ void    test_mob(t_box *stacks);
 int    is_sorted(int  *int_cast, int argc);
 int     *int_buff_dup(int  *buff, int n);
 int		ft_list_len_inst(t_instruction *stack);
-
+void		ft_list_inst_print(t_instruction *stack);

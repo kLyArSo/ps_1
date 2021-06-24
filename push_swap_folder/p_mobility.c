@@ -18,6 +18,7 @@ void    pa(t_box    *stacks)
             stacks->stack_b = stacks->stack_b->next;
         ptr->next =  stacks->stack_a;
         stacks->stack_a = ptr;
+        write(1, "pa\n", 3);
     }
 }
 
@@ -40,6 +41,7 @@ void    pb(t_box    *stacks)
         else
             stacks->stack_a = stacks->stack_a->next;
         ptr->next = stacks->stack_b;
-        stacks->stack_b = ptr; 
+        stacks->stack_b = ptr;
+        write(1, "pb\n", 3);
     }
 }

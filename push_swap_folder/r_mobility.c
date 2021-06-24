@@ -19,6 +19,7 @@ void    ra(t_box    *stacks)
         boat->next = tmp;
         boat = boat->next;
         boat->next = NULL;
+        write(1, "ra\n", 3);
     }
 }
 
@@ -42,6 +43,7 @@ void    rb(t_box    *stacks)
         boat->next = tmp;
         boat = boat->next;
         boat->next = NULL;
+        write(1, "rb\n", 3);
     }
 }
 

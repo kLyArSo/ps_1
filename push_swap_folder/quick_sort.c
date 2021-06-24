@@ -65,7 +65,6 @@ int     int_buff_cmp(int  *int_cast, int     *sorted, int len)
         i++;
     if (i != len)//not sorted
     {
-        int_cast = free_int_buffer(int_cast);
         sorted = free_int_buffer(sorted);
         return (0);
     }
@@ -77,7 +76,7 @@ int     int_buff_cmp(int  *int_cast, int     *sorted, int len)
     }
 }
 
-int     *int_buff_dup(int  *buff, int n)
+int     *int_buff_dup(int  *int_cast, int n)
 {
     int     *ret;
     int     i;
@@ -86,7 +85,7 @@ int     *int_buff_dup(int  *buff, int n)
     ret = malloc(n * sizeof(int));
     while(i < n)
     {
-        ret[i] = buff[i];
+        ret[i] = int_cast[i];
         i++;
     }
     return (ret);
@@ -100,8 +99,7 @@ int    *quick_sort(int  *buff, int n)
 
 int    is_sorted(int  *int_cast, int argc)
 {
-    int     *sorted;
-
-    sorted = quick_sort(int_buff_dup(sorted, argc - 1), argc - 1);
-    return(int_buff_cmp(int_cast, sorted, argc - 1));
+    return (int_buff_cmp(int_cast,
+    quick_sort(int_buff_dup(int_cast, argc - 1), argc - 1),
+    argc - 1));
 }

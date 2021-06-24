@@ -26,6 +26,6 @@ char		*ft_strdup_gnl(const char *s1);
 char		*ft_strjoin_gnl(char const *s1, char const *s2);
 int			get_next_line(int fd, char **line);
 int         *quick_sort(int  *buff, int n);
-int         int_buff_cmp(int  *int_cast, int     *sorted, int len);
+int         int_buff_cmp_1(int  *int_cast, int     *sorted, int len);
 
 #endif

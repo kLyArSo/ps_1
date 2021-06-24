@@ -18,6 +18,7 @@ void    rra(t_box    *stacks)
         boat->next = NULL;
         tmp->next = stacks->stack_a;
         stacks->stack_a = tmp;
+        write(1, "rra\n", 4);
     }
 }
 
@@ -40,6 +41,7 @@ void    rrb(t_box    *stacks)
         boat->next = NULL;
         tmp->next = stacks->stack_b;
         stacks->stack_b = tmp;
+        write(1, "rrb\n", 4);
     }
 }
 

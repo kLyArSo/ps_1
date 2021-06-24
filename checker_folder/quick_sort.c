@@ -76,6 +76,27 @@ int     int_buff_cmp(int  *int_cast, int     *sorted, int len)
         return (1);
     }
 }
+int     int_buff_cmp_1(int  *int_cast, int     *sorted, int len)
+{
+    int i;
+
+    i = 0;
+    while (i < len && int_cast[i] == sorted[i])
+        i++;
+    if (i != len)//not sorted
+    {
+        int_cast = free_int_buffer(int_cast);
+        sorted = free_int_buffer(sorted);
+        return (0);
+    }
+    else
+    {
+        int_cast = free_int_buffer(int_cast);
+        sorted = free_int_buffer(sorted);
+        return (1);
+    }
+}
+
 
 int     *int_buff_dup(int  *buff, int n)
 {

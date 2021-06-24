@@ -35,6 +35,15 @@ int		ft_list_len_inst(t_instruction *stack)
 	}
 	return (i);
 }
+void		ft_list_inst_print(t_instruction *stack)
+{
+	printf("------------------------------------------\n");
+	while (stack != NULL)
+	{
+		printf("%s\n", stack->instruction);
+		stack = stack->next;
+	}
+}
 char	*my_calloc(int	length)
 {
 	int		i;

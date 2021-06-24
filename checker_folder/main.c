@@ -54,21 +54,21 @@ t_instruction   *get_instructions()
 
     k = 0;
     instr = NULL;
+
     while (1)
     {
-        cmd = my_calloc(5 * sizeof(char));
-        if (get_next_line(1 ,&cmd) == 1)
+        if (get_next_line(1, &cmd) == 1)
         {
             if (check_command_validity(cmd) == 0)
             {
-                printf("KO : UNEXISTANT_INSTRUCTION\n");
+                printf("Error\n");
                 exit(0);
             }
             if (k == 0)
             {
                 instr = malloc(sizeof(t_instruction));
                 ptr = instr;
-                ptr->instruction = cmd; 
+                ptr->instruction = cmd;
                 ptr->next = NULL;
                 k = 1;
             }
@@ -81,7 +81,10 @@ t_instruction   *get_instructions()
             }
         }
         else
+        {
+            free(cmd);
             break ;
+        }
     }
     return (instr);
 }
@@ -103,15 +106,16 @@ int     *list_to_int_buff(t_box   *stacks)
     }
     return (ret);
 }
-void    check_if_sorted(int  *post_instructions, int argc)
+void    check_if_sorted(int  *int_cast, int  *post_instructions, int argc)
 {
     int     *algo_sorted;
 
-    algo_sorted = quick_sort(algo_sorted, argc - 1);
-    if (int_buff_cmp(algo_sorted, post_instructions, argc - 1) == 0)
-        printf("KO");
+    algo_sorted = quick_sort(int_cast, argc - 1);
+    //algo_sorted and int cast point to same area in memory
+    if (int_buff_cmp_1(algo_sorted, post_instructions, argc - 1) == 0)
+        printf("KO\n");
     else
-        printf("OK");
+        printf("OK\n");
 
 }
 void    check_start(int  *int_cast, int argc, t_instruction   *instr)
@@ -121,19 +125,42 @@ void    check_start(int  *int_cast, int argc, t_instruction   *instr)
     stacks = initialise_t_box(stacks);
     initialise_stack_a(stacks, int_cast, argc);
     initialise_stack_b(stacks);
-
-    apply_instruction(stacks, instr);//apply instructions to list
+    apply_instruction(stacks, instr);
     if (ft_list_len(stacks->stack_b) != 0)
+    {
+        int_cast = free_int_buffer(int_cast);
         printf("KO\n");
+    }
     else
     {
         post_instructions = list_to_int_buff(stacks); //convert it back into int buffer
-        check_if_sorted(post_instructions, argc);//check that stack a is sorted and that stacck n is empty
+        check_if_sorted(int_cast, post_instructions, argc);//check that stack a is sorted and that stacck n is empty
     }
     stacks->stack_a = free_stack(stacks->stack_a);
     stacks->stack_b = free_stack(stacks->stack_b);
     free(stacks);
     stacks = NULL;
+}
+
+void    free_inst_content(t_instruction   *instr)
+{
+    while(instr != NULL)
+    {
+        free(instr->instruction);
+        instr = instr->next;
+    }
+}
+void    free_inst_nodes(t_instruction   *instr)
+{
+    t_instruction   *tmp;
+
+    while(instr != NULL)
+    {
+        tmp = instr;
+        instr = instr->next;
+        free(tmp);
+    }
+
 }
 int     main(int argc, char **argv)
 {
@@ -145,9 +172,10 @@ int     main(int argc, char **argv)
         int_cast = initial_error_management(argc, argv, int_cast);
         instr = get_instructions();
         len = ft_list_len_inst(instr);
-        printf("list length = %d\n", len);
         if (len != 0)
             check_start(int_cast, argc, instr);
+        free_inst_content(instr);
+        free_inst_nodes(instr);
     }
-    //system("leaks push_swap");
+    system("leaks checker | grep bytes");
 }
